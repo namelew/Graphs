@@ -86,7 +86,7 @@ void printGraphOriented( Graph *graph){
     Edge *auxE;
     printf("\n********* Vertexes ************\n");
     for (auxV = graph->vertexes; auxV!=NULL; auxV=auxV->next) 
-        printf("\t %d s() e(),\n", auxV->value);
+        printf("\t %d s(%d) e(%d),\n", auxV->value, vertexDegreeOriented(graph->edges, auxV->value, 1), vertexDegreeOriented(graph->edges, auxV->value, 0));
     
     printf("\n\n********* Edges ************\n");
     if (graph->edges == NULL)
@@ -162,6 +162,7 @@ int main(){
     g1->edges = insertEdge(g1, 5, 4);   
 
     printGraphNotOriented(g1);
+    printGraphOriented(g1);
 
 
     return 0;
