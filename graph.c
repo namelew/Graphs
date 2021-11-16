@@ -48,6 +48,20 @@ int vertexDegree(Edge *head,int v){
     
 }
 
+int vertexDegreeOriented(Edge *head, int v, int type){
+    int count = 0;
+    Edge *aux;
+    for(aux = head; aux != NULL; aux=aux->next){
+        if(aux->d->value == v && !type){
+            count++;
+        }
+        if(aux->s->value == v && type){
+            count++;
+        }
+    }
+    return count;
+}
+
 //Exemplo de print
 void printGraphNotOriented( Graph *graph){
     Vertex *auxV;
@@ -142,7 +156,10 @@ int main(){
     g1->vertexes = insertVertex(g1->vertexes, 4);
     g1->vertexes = insertVertex(g1->vertexes, 5); 
 
-    g1->edges = insertEdge(g1, 5, 1); 
+    g1->edges = insertEdge(g1, 5, 1);
+    g1->edges = insertEdge(g1, 5, 2);
+    g1->edges = insertEdge(g1, 5, 3);
+    g1->edges = insertEdge(g1, 5, 4);   
 
     printGraphNotOriented(g1);
 
