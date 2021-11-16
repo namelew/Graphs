@@ -96,9 +96,17 @@ void printGraphOriented( Graph *graph){
             printf("\t (%d, %d)", auxE->s->value, auxE->d->value);
 
     printf("\n\n********* Vertices Fonte ************\n");
-
+    for (auxV = graph->vertexes; auxV!=NULL; auxV=auxV->next){
+        if(!(vertexDegreeOriented(graph->edges, auxV->value, 0))){
+            printf("\t %d,", auxV->value);
+        }
+    }
     printf("\n\n********* Vertices Sumidouro ************\n");
-        
+    for (auxV = graph->vertexes; auxV!=NULL; auxV=auxV->next){
+        if(!(vertexDegreeOriented(graph->edges, auxV->value, 1))){
+            printf("\t %d,", auxV->value);
+        }
+    }
     printf("\n");
 }
 
