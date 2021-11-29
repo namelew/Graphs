@@ -35,7 +35,6 @@ int vertexDegree(int graph[SIZE][SIZE], int key){
 }
 
 int vertexDegreeOriented(int graph[SIZE][SIZE], int key, int type){
-    // Errado 
     // type == 1 SAIDA
     // type == 0 ENTRADA
     int counts = 0, i, j, counte = 0;
