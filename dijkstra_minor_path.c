@@ -41,17 +41,20 @@ void minor_path(int g[TAM][TAM], int node){
     for(int i = 0; i < TAM-1; i++){
         int current = exploreNewNode(possiblePaths);
         possiblePaths[current].isVisited = 1;
-
+        printf("\nVisiting %d node\n", current);
         for(int j=0; j < TAM; j++){
             if(g[current][j]!=0 && !possiblePaths[j].isVisited && possiblePaths[current].value != INT_MAX && (possiblePaths[current].value + g[current][j] < possiblePaths[j].value)){
                 possiblePaths[j].value = possiblePaths[current].value + g[current][j];
                 possiblePaths[j].before = current;
             }
         }
-    }
-    for(int i = 0; i < TAM; i++){
-        printf("Node:%i\nParent: %i\nValue:%i\n", i+1, possiblePaths[i].before, possiblePaths[i].value);
-        printf("-------------------------------------------------\n");
+        printf("Current state\n");
+        printf("-------------------------\n");
+        printf("| Node | Parent | Value |\n");
+        for(int i = 0; i < TAM; i++){
+            printf("|   %i  |    %i   |   %i   |\n", i, possiblePaths[i].before, possiblePaths[i].value);
+        }
+        printf("-------------------------\n");
     }
 }
 
@@ -65,12 +68,6 @@ int main(){
         {0,0,0,6,7,0}
     };
 
-    for(int i = 0; i < TAM; i++){
-        for(int j = 0; j < TAM; j++){
-            printf("%i ", graph[i][j]);
-        }
-        printf("\n");
-    }
     printf("Primeira aresta a ser explorada?\n");
 
     int firstNode;
