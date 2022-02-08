@@ -66,7 +66,7 @@ int pop(Queue *queue){
     return value;
 }
 
-void bfs(int g[TAM][TAM], int node){
+void bfs(int g[TAM][TAM], int node, int destiny){
     Queue queue;
     Paths paths[TAM];
 
@@ -113,6 +113,10 @@ void bfs(int g[TAM][TAM], int node){
             }
         }
         printf("\n\n");
+
+        if(current == destiny){
+            break;
+        }
     }
     printf("-------------------------------------\n");
     for(int i = 0; i < TAM; i++){
@@ -132,8 +136,15 @@ int main(){
         {0,0,0,6,7,0}
     };
 
+    int firstNode;
+    int lastNode;
 
-    bfs(graph, 0);
+    printf("Origem: ");
+    scanf("%d", &firstNode);
+    printf("Destino: ");
+    scanf("%d", &lastNode);
+
+    bfs(graph, firstNode, lastNode);
 
     return 0;
 }
