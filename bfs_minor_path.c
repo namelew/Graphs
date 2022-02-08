@@ -44,8 +44,8 @@ void push(Queue *queue, int value){
         return;
     }
 
-    queue->tail->next = new;
-    queue->tail = new;
+    new->next = queue->top;
+    queue->top = new;
 }
 
 int pop(Queue *queue){
@@ -133,7 +133,7 @@ int main(){
     };
 
 
-    bfs(graph, 5);
+    bfs(graph, 0);
 
     return 0;
 }
