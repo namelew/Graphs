@@ -7,21 +7,22 @@ void Percorre(int g[TAM][TAM], int *vet, int o){
     vet[o]++;
 
     for(int i = 0; i < TAM; i++){
-        if(!vet[i] && !g[o][i]){
+        if(!vet[i] && g[o][i]){
             Percorre(g, vet, i);
         }
     }
 }
 
 int isConec(int g[TAM][TAM], int o){
-    int vet[TAM], r;
+    int *vet = calloc(sizeof(int), TAM);
+    int r = 0;
 
     Percorre(g, vet, o);
 
     for(int i = 0; i < TAM; i++){
         r += vet[i];
     }
-    
+    printf("%i\n", r);
     if(r - TAM){
         return 0;
     }
@@ -30,11 +31,11 @@ int isConec(int g[TAM][TAM], int o){
 
 int main(){
     int graph[TAM][TAM] = {
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0}
+        {0, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1},
+        {1, 1, 0, 1, 1},
+        {1, 1, 1, 0, 1},
+        {1, 1, 1, 1, 0}
     };
 
     if(isConec(graph, 0)){
