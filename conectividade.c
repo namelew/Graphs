@@ -44,7 +44,5 @@ int main(){
         printf("Nao eh conexo\n");
     }
 
-
-
     return 0;
 }
