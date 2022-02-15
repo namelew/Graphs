@@ -3,12 +3,12 @@
 
 #define TAM 5
 
-void Percorre(int g[TAM][TAM], int *vet, int o){
+void percorre(int g[TAM][TAM], int *vet, int o){
     vet[o]++;
 
     for(int i = 0; i < TAM; i++){
         if(!vet[i] && g[o][i]){
-            Percorre(g, vet, i);
+            percorre(g, vet, i);
         }
     }
 }
@@ -17,7 +17,7 @@ int isConec(int g[TAM][TAM], int o){
     int *vet = calloc(sizeof(int), TAM);
     int r = 0;
 
-    Percorre(g, vet, o);
+    percorre(g, vet, o);
 
     for(int i = 0; i < TAM; i++){
         r += vet[i];
