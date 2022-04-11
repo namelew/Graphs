@@ -164,12 +164,12 @@ void buildAswer(Answer *answer, Graph *graph, int *trees){
         int subd = subTree(trees, aux->d);
 
         if(subo != subd){
-            if((trees[subo] * -1) > (trees[subd] * -1)){
-                trees[aux->o] += trees[aux->d];
-                trees[aux->d] = aux->o;
+            if(trees[subo] < trees[subd]){
+                trees[subo] += trees[subd];
+                trees[subd] = subo;
             } else{
-                trees[aux->d] += trees[aux->o];
-                trees[aux->o] = aux->d;
+                trees[subd] += trees[subo];
+                trees[subo] = subd;
             }
             node = createEdge(aux->o, aux->d);
             insertEdge(answer, node);
