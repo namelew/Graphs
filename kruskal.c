@@ -157,7 +157,7 @@ int subTree(int *tree, int node){
 void buildAswer(Answer *answer, Graph *graph, int *trees){
     Vertex *aux = graph->head;
     Edge *node;
-    for(int i = 0; i < TAM-1; i++){
+    for(int i = 0; i < TAM; i++){
         printf("Explorando nodo: %i\n", i);
 
         int subo = subTree(trees, aux->o);
