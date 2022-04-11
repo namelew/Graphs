@@ -68,6 +68,7 @@ void insertEdge(Answer *answer, Edge *node){
     if(!answer->head && !answer->tail){
         answer->head = node;
         answer->tail = node;
+        return;
     }
 
     answer->tail->next = node;
@@ -84,13 +85,41 @@ void insertVertex(Graph *graph, Vertex *node){
 
     Vertex *current  = graph->head;
 
-    while(current->next != NULL && current->next->w < node->w){
-        current = current->next;
-    }
-
     node->next = current->next;
     node->prev = current;
     current->next = node;
+}
+
+Vertex *sortInsertVertex(Vertex *head, Vertex *node){
+    if(!head || head->w >= node->w)
+    {
+        node->next = head;
+        return node;
+    } else{
+        Vertex *current  = head;
+
+        while(current->next != NULL && current->next->w < node->w){
+            current = current->next;
+        }
+
+        node->next = current->next;
+        node->prev = current;
+        current->next = node;
+    }
+    return head;
+}
+
+Vertex *sortVertexList(Graph *graph)
+{
+    Vertex *curr = graph->head;
+    Vertex *sorted_head = NULL;
+    while (curr != NULL)
+    {
+        Vertex *currNext = curr->next;
+        sorted_head = sortInsertVertex(sorted_head,curr);
+        curr = currNext;
+    }
+    return sorted_head;
 }
 
 void *buildVexList(Graph *graph, int matrix[TAM][TAM]){
@@ -102,6 +131,7 @@ void *buildVexList(Graph *graph, int matrix[TAM][TAM]){
             }
         }
     }
+    sortVertexList(graph);
 }
 
 void printAnswer(Answer *answer){
