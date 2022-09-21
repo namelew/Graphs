@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#define TAM 6
-#define INT_MAX 2147483647
+#include "graph.h"
 
 typedef struct node{
     int value;
@@ -14,20 +10,14 @@ typedef struct{
     Node *tail;
 }Queue;
 
-typedef struct{
-    int value;
-    int parent;
-    int color;
-}Paths;
-
 void initQueue(Queue *queue){
     queue->top = NULL;
     queue->tail = NULL;
 }
 
-void initPaths(Paths *paths){
+void initPaths(NodePath *paths){
     for(int i=0; i < TAM; i++){
-        paths[i].color = 0;
+        paths[i].control = 0;
         paths[i].value = INT_MAX;
         paths[i].parent = -1;
     }
@@ -49,9 +39,8 @@ void push(Queue *queue, int value){
 }
 
 int pop(Queue *queue){
-    if(!queue->tail){
-        return;
-    }
+    if(!queue->tail)
+        return -1;
     Node *aux = queue->top;
     int value = aux->value;
     if(queue->top == queue->tail){
@@ -68,55 +57,54 @@ int pop(Queue *queue){
 
 void bfs(int g[TAM][TAM], int node, int destiny){
     Queue queue;
-    Paths paths[TAM];
+    NodePath paths[TAM];
 
     initQueue(&queue);
     initPaths(paths);
 
-    paths[node].color = 1;
+    paths[node].control = 1;
     paths[node].value = 0;
 
     push(&queue, node);
 
     while(queue.tail){
         int current = pop(&queue);
+        if(current == -1)
+            break;
         printf("Explorando vertice %d\n", current);
         for(int i = 0; i < TAM; i++){
-            if(g[current][i] && !paths[i].color){
-                paths[i].color = 1;
+            if(g[current][i] && !paths[i].control){
+                paths[i].control = 1;
                 paths[i].value = paths[current].value + 1;
                 paths[i].parent = current;
                 push(&queue, i);
             }
         }
-        paths[current].color = 2;
+        paths[current].control = 2;
         printf("Totalmente Explorados: ");
         for(int i = 0; i < TAM; i++){
-            if(paths[i].color == 2){
+            if(paths[i].control == 2){
                 printf("%d(%d) ", i, paths[i].value);
             }
         }
-        printf("\n");
 
-        printf("Visitados: ");
+        printf("\nVisitados: ");
         for(int i = 0; i < TAM; i++){
-            if(paths[i].color == 1){
+            if(paths[i].control == 1){
                 printf("%d(%d) ", i, paths[i].value);
             }
         }
-        printf("\n");
 
-        printf("Nao Explorados: ");
+        printf("\nNao Explorados: ");
         for(int i = 0; i < TAM; i++){
-            if(!paths[i].color){
+            if(!paths[i].control){
                 printf("%d(infinito) ", i);
             }
         }
         printf("\n\n");
 
-        if(current == destiny){
+        if(current == destiny)
             break;
-        }
     }
     printf("-------------------------------------\n");
     for(int i = 0; i < TAM; i++){
