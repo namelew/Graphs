@@ -1,21 +1,10 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <math.h>
-
-#define TAM 6
-#define INT_MAX 2147483647
-
-typedef struct{
-    int isVisited;
-    int value;
-    int before;
-}NodePath;
+#include "graph.h"
 
 int exploreNewNode(NodePath *possiblePaths){
     int menor = INT_MAX;
     int newNode;
     for(int i = 0; i < TAM; i++){
-        if(!possiblePaths[i].isVisited && possiblePaths[i].value < menor){
+        if(!possiblePaths[i].control && possiblePaths[i].value < menor){
             menor = possiblePaths[i].value;
             newNode = i;
         }
@@ -25,9 +14,9 @@ int exploreNewNode(NodePath *possiblePaths){
 
 void init(NodePath *possiblePaths){
     for(int i = 0; i < TAM; i++){
-        possiblePaths[i].before = -1;
+        possiblePaths[i].parent = -1;
         possiblePaths[i].value = INT_MAX;
-        possiblePaths[i].isVisited = 0;
+        possiblePaths[i].control = 0;
     }
 }
 
@@ -40,20 +29,19 @@ void minor_path(int g[TAM][TAM], int node){
     
     for(int i = 0; i < TAM-1; i++){
         int current = exploreNewNode(possiblePaths);
-        possiblePaths[current].isVisited = 1;
+        possiblePaths[current].control = 1;
         printf("\nVisiting %d node\n", current);
         for(int j=0; j < TAM; j++){
-            if(g[current][j]!=0 && !possiblePaths[j].isVisited && possiblePaths[current].value != INT_MAX && (possiblePaths[current].value + g[current][j] < possiblePaths[j].value)){
+            if(g[current][j]!=0 && !possiblePaths[j].control && possiblePaths[current].value != INT_MAX && (possiblePaths[current].value + g[current][j] < possiblePaths[j].value)){
                 possiblePaths[j].value = possiblePaths[current].value + g[current][j];
-                possiblePaths[j].before = current;
+                possiblePaths[j].parent = current;
             }
         }
         printf("Current state\n");
         printf("-------------------------\n");
         printf("| Node | Parent | Value |\n");
-        for(int i = 0; i < TAM; i++){
-            printf("|   %i  |    %i   |   %i   |\n", i, possiblePaths[i].before, possiblePaths[i].value);
-        }
+        for(int i = 0; i < TAM; i++)
+            printf("|   %i  |    %i   |   %i   |\n", i, possiblePaths[i].parent, possiblePaths[i].value);
         printf("-------------------------\n");
     }
 }
