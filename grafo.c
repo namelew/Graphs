@@ -137,6 +137,10 @@ static void buscaLargura(Grafo *g, int v, int *pai, int *marcado,int *distancia)
     f->destroi(f);
 }
 
+static void algoritmoPrim(Grafo *g, int *marcado, int *pai){
+
+}
+
 bool GRAFOcaminho(Grafo *g, int v, int w) {
     int marcado[g->num_v];
 
