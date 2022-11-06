@@ -124,7 +124,6 @@ static void buscaLargura(Grafo *g, int v, int *pai, int *marcado,int *distancia)
     f->enfileira(f, v);
     while(f->cadeca){
         int w = f->desefileira(f);
-        printf("%d ", w);
         for(int u = 0; u < g->num_v; u++){
             if(g->matriz[w][u] && !marcado[u]){
                 marcado[u] = 1;
@@ -166,7 +165,7 @@ static void exploraNodo(Grafo *g, Lista *lista, int start){
         if(i != start && GRAFOcaminho(g, start, i)){
             lista->remove(lista, i);
         }
-    }
+     }
 }
 
 bool GRAFOconexo(Grafo *g){
@@ -220,6 +219,16 @@ void GRAFObuscaProfundidade(Grafo *g, int v){
 }
 
 void GRAFObuscaLargura(Grafo *g, int v){
+    int marcado[g->num_v], pai[g->num_v], distancia[g->num_v], percursso[g->num_v];
+
+    for (int i = 0; i < g->num_v; i++) marcado[i] = 0;
+    for (int i = 0; i < g->num_v; i++) pai[i] = -1;
+    for (int i = 0; i < g->num_v; i++) distancia[i] = INTMAX;
+
+    buscaLargura(g, v, pai, marcado, distancia);
+}
+
+void GRAFOimprime_distancias_caminhos(Grafo *g, int v){
     int marcado[g->num_v], pai[g->num_v], distancia[g->num_v];
 
     for (int i = 0; i < g->num_v; i++) marcado[i] = 0;
@@ -227,4 +236,38 @@ void GRAFObuscaLargura(Grafo *g, int v){
     for (int i = 0; i < g->num_v; i++) distancia[i] = INTMAX;
 
     buscaLargura(g, v, pai, marcado, distancia);
+
+    for(int i = 0; i < g->num_v; i++){
+        if(pai[i] == -1 && !distancia[i]){
+            printf("%d: 0, %d\n", i, i);
+        }else{
+            if(distancia[i] != INTMAX){
+                int w = i;
+                printf("%d: %d, ", i, distancia[i]);
+                while(w != -1){
+                    printf("%d ", w);
+                    w = pai[w];
+                }
+                printf("\n");
+            } else{
+                printf("%d: infinita, sem caminho ate %d\n", i, v);
+            }
+        }
+    }
+
+    int count = 0;
+
+    for(int i = 0; i < g->num_v; i++){
+        if(distancia[i] != INTMAX){
+            ++count;
+        }
+    }
+
+    printf("%d\n", count);
+
+    int max = 0;
+
+    for(int i = 0; i < g->num_v; i++) if(distancia[i] != INTMAX && distancia[i] > max) max = distancia[i];
+
+    printf("%d\n", max);
 }

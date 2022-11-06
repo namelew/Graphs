@@ -24,7 +24,6 @@ static void FILAenfileira(Fila *f, int dado){
 
 static int FILAdesenfileira(Fila *f){
     if(!(f->cadeca)) return -1;
-    printf("%d\n", f->cadeca->dado);
     int dado = f->cadeca->dado;
     Elemento *aux = f->cadeca;
 

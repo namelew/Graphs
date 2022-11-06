@@ -34,4 +34,6 @@ void GRAFObuscaProfundidade(Grafo *g, int v);
 
 void GRAFObuscaLargura(Grafo *g, int v);
 
+void GRAFOimprime_distancias_caminhos(Grafo *g, int v);
+
 #endif /* GRAFO_H */
