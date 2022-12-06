@@ -52,6 +52,16 @@ int GRAFOget_num_vertice(Grafo *g) {
     return g->num_v;
 }
 
+void GRAFOmenor_caminho(Grafo *g){
+
+}
+
+void GRAFOimprime(Grafo *g){
+    for(int i = 0; i < g->num_v; i++){
+        g->ladj[i]->imprime(g->ladj[i]);
+    }
+}
+
 void GRAFOdestroi(Grafo *g){
     for(int i = 0; i < g->num_v; i++){
         g->ladj[i]->destroi(g->ladj[i]);

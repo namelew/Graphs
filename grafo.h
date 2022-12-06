@@ -18,6 +18,10 @@ int GRAFOget_num_aresta(Grafo *g);
 
 int GRAFOget_num_vertice(Grafo *g);
 
+void GRAFOmenor_caminho(Grafo *g);
+
+void GRAFOimprime(Grafo *g);
+
 void GRAFOdestroi(Grafo *g);
 
 #endif /* GRAFO_H */

@@ -11,9 +11,9 @@ int main() {
     GRAFOinsere_aresta(g, ARESTA(1,2,3));
     GRAFOinsere_aresta(g, ARESTA(2,1,5));
     GRAFOinsere_aresta(g, ARESTA(3,2,2));
-    printf("Remove arestas\n");
-    GRAFOremove_aresta(g, ARESTA(1,2,3));
-    printf("Destroi grafo\n");
+
+    GRAFOmenor_caminho(g);
+
     GRAFOdestroi(g);
 
     return 0;

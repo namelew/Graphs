@@ -99,11 +99,17 @@ static Item LISTAprocura(Lista *lista, int chave){
     return ITEM(-1,-1);
 }
 
+static void LISTAimprime(Lista *lista){
+    for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo)
+        printf("(%d-%d) ", aux->data.ind, aux->data.chave);
+}
+
 Lista *LISTAconstroi(){
     Lista *lista = malloc(sizeof(*lista));
     lista->cabeca = NULL;
     lista->cauda = NULL;
     lista->insere = &LISTAinsere;
+    lista->imprime = &LISTAimprime;
     lista->remove = &LISTAremove;
     lista->conta = &LISTAConta;
     lista->destroi = &LISTAdestroi;

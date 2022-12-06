@@ -12,6 +12,7 @@ typedef struct lista{
     int (*remove)(struct lista *, int);
     void (*destroi)(struct lista *);
     int (*conta)(struct lista *);
+    void (*imprime)(struct lista *);
     Item (*procura)(struct lista *, int);
 }Lista;
 
