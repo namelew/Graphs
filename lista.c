@@ -93,6 +93,12 @@ static int LISTAConta(Lista *lista){
     return num;
 }
 
+static int LISTAprocura(Lista *lista, int chave){
+    for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo)
+        if(aux->data == chave) return aux->data;
+    return -1;
+}
+
 Lista *LISTAconstroi(){
     Lista *lista = malloc(sizeof(*lista));
     lista->cabeca = NULL;
@@ -101,6 +107,7 @@ Lista *LISTAconstroi(){
     lista->remove = &LISTAremove;
     lista->conta = &LISTAConta;
     lista->destroi = &LISTAdestroi;
+    lista->procura = &LISTAprocura;
 
     return lista;
 }
