@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include "aresta.h"
 
-Aresta ARESTA(int v1, int v2){
+Aresta ARESTA(int v1, int v2, int peso){
     Aresta a;
     a.v1 = v1;
     a.v2 = v2;
+    a.peso = peso;
 
     return a;
 }

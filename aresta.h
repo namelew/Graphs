@@ -5,8 +5,9 @@
 typedef struct aresta {
     int v1;
     int v2;
+    int peso;
 }Aresta;
 
-Aresta ARESTA(int v1, int v2);
+Aresta ARESTA(int v1, int v2, int peso);
 
 #endif /* ARESTA_H */

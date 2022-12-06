@@ -4,12 +4,12 @@
 #include <stdio.h>
 
 struct no{
-    int data;
+    Item data;
     struct no *proximo;
     struct no *anterior;
 };
 
-static void LISTAinsere(Lista *lista, int data){
+static void LISTAinsere(Lista *lista, Item data){
     No *novo = malloc(sizeof(*novo));
     novo->data = data;
     novo->anterior = NULL;
@@ -32,7 +32,7 @@ static int LISTAremove(Lista *lista, int data){
 
     if(!lista->cabeca) return 0;
 
-    if(lista->cabeca->data == data){
+    if(lista->cabeca->data.ind == data){
         temp = lista->cabeca;
         if(!lista->cabeca->proximo){
             free(temp);
@@ -46,7 +46,7 @@ static int LISTAremove(Lista *lista, int data){
         return 1;
     }
 
-    if(lista->cauda->data == data){
+    if(lista->cauda->data.ind == data){
         temp = lista->cauda;
         lista->cauda = temp->anterior;
         lista->cauda->proximo = NULL;
@@ -55,7 +55,7 @@ static int LISTAremove(Lista *lista, int data){
     }
 
     for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo){
-        if(aux->data == data){
+        if(aux->data.ind == data){
             temp = aux;
             break;
         }
@@ -93,10 +93,10 @@ static int LISTAConta(Lista *lista){
     return num;
 }
 
-static int LISTAprocura(Lista *lista, int chave){
+static Item LISTAprocura(Lista *lista, int chave){
     for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo)
-        if(aux->data == chave) return aux->data;
-    return -1;
+        if(aux->data.ind == chave) return aux->data;
+    return ITEM(-1,-1);
 }
 
 Lista *LISTAconstroi(){

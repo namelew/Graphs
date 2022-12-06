@@ -30,9 +30,10 @@ Grafo *GRAFOconstroi(int num_v) {
 }
 
 void GRAFOinsere_aresta(Grafo *g, Aresta a) {
-    
-    if(g->ladj[a.v1]->procura == -1 && a.v1 != a.v2) {
-        g->ladj[a.v1]->insere(g->ladj[a.v1], a.v2);
+    Item result = g->ladj[a.v1]->procura(g->ladj[a.v1], a.v2);
+    if(result.ind == -1 && a.v1 != a.v2) {
+        result = ITEM(a.v2, a.peso);
+        g->ladj[a.v1]->insere(g->ladj[a.v1], result);
         g->num_a++;
     }
 }
