@@ -12,7 +12,7 @@
 #include "pilha.h"
 
 struct elemPilha {
-    Item item;
+    int item;
     struct elemPilha *proximo;
 };
 typedef struct elemPilha ElemPilha;
@@ -34,7 +34,7 @@ bool PILHAvazia(Pilha *p) {
     return (p->topo == NULL);
 }
 
-void PILHAinsere(Pilha *p, Item i) {
+void PILHAinsere(Pilha *p, int i) {
     ElemPilha *aux;
 
     // Cria um novo elemento da lista encadeada que representa a pilha e
@@ -48,8 +48,8 @@ void PILHAinsere(Pilha *p, Item i) {
     p->topo = aux;
 }
 
-Item PILHAremove(Pilha *p) {
-    Item i;
+int PILHAremove(Pilha *p) {
+    int i;
     ElemPilha *aux;
 
     if (PILHAvazia(p)) {

@@ -1,12 +1,28 @@
-#ifndef HEAPH
-#define HEAPH
+#ifndef HEAP_H
 
-#include "aresta.h"
+#define HEAP_H
+
+#include <stdbool.h>
+#include "item.h"
 
 typedef struct heap Heap;
 
-void HEAPenpilha(Heap *h, Aresta a, int peso);
-Aresta HEAPdesenpilha(Heap *h);
-Heap *HEAPconstroi();
+Heap *HEAPconstroi(int max_num_itens);
 
-#endif /*#HEAPH*/
+bool HEAPvazia(Heap *f);
+
+bool HEAPcheia(Heap *f);
+
+bool HEAPtem_indice(Heap *f, int ind);
+
+void HEAPinsere(Heap *f, Item i);
+
+Item HEAPremove(Heap *f);
+
+Chave HEAPchave(Heap *f, int ind);
+
+void HEAPdiminui_chave(Heap *f, int ind, Chave c);
+
+void HEAPdestroi(Heap *f);
+
+#endif /* HEAP_H */

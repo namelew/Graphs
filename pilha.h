@@ -20,9 +20,9 @@ Pilha *PILHAconstroi();
 
 bool PILHAvazia(Pilha *p);
 
-void PILHAinsere(Pilha *p, Item i);
+void PILHAinsere(Pilha *p, int i);
 
-Item PILHAremove(Pilha *p);
+int PILHAremove(Pilha *p);
 
 void PILHAdestroi(Pilha *p);
 
