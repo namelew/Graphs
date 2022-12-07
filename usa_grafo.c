@@ -5,24 +5,31 @@
 #include "fila.h"
 
 int main() {
-    printf("Constroi grafo\n");
-    Grafo *g = GRAFOconstroi(6);
-    printf("Insere arestas\n");
+    int c,v,r,x;
 
-    GRAFOinsere_aresta(g, ARESTA(0,2,3));
-    GRAFOinsere_aresta(g, ARESTA(0,1,2));
-    GRAFOinsere_aresta(g, ARESTA(0,4,3));
-    GRAFOinsere_aresta(g, ARESTA(1,2,5));
-    GRAFOinsere_aresta(g, ARESTA(1,3,1));
-    GRAFOinsere_aresta(g, ARESTA(2,0,9));
-    GRAFOinsere_aresta(g, ARESTA(3,5,2));
-    GRAFOinsere_aresta(g, ARESTA(3,2,3));
-    GRAFOinsere_aresta(g, ARESTA(4,0,2));
-    GRAFOinsere_aresta(g, ARESTA(5,3,5));
-    GRAFOinsere_aresta(g, ARESTA(5,1,7));
-    GRAFOinsere_aresta(g, ARESTA(5,0,4));
+    scanf("%d %d", &c, &v);
+    getchar();
 
-    GRAFOmenor_caminho(g, 0);
+    Grafo *g = GRAFOconstroi(c);
+
+    for(int i = 0; i < v; i++){
+        int y,z;
+        scanf("%d %d %d", &x, &y, &z);
+        getchar();
+
+        GRAFOinsere_aresta(g, ARESTA(x,y,z));
+    }
+
+    scanf("%d", &r);
+    getchar();
+
+    for(int i = 0; i < r; i++){
+        int m;
+        scanf("%d %d", &x, &m);
+        getchar();
+
+        GRAFOmenor_caminho(g, x, m);
+    }
 
     GRAFOdestroi(g);
 

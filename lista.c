@@ -105,12 +105,10 @@ static void LISTAimprime(Lista *lista){
 }
 
 static void LISTAexplora(Lista *lista, Heap *heap, int v, int *pai, int *distancia){
-    printf("Explorando %d\n", v);
     for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo){
         if(HEAPtem_indice(heap, aux->data.ind) && HEAPdiminui_chave(heap, aux->data.ind, aux->data.chave + distancia[v])){
             pai[aux->data.ind] = v;
             distancia[aux->data.ind] = aux->data.chave + distancia[v];
-            printf("(%d %d %d)\n", aux->data.ind, v, distancia[aux->data.ind]);
         }
     }
 }

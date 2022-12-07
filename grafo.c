@@ -16,8 +16,6 @@ static void dijkstra(Grafo *g, Heap *heap, int v, int *pai, int *distancia){
     while(!HEAPvazia(heap)){
         Item w = HEAPremove(heap);
         g->ladj[w.ind]->explora(g->ladj[w.ind], heap, w.ind, pai, distancia);
-        printf("\n PAI | DISTANCIA \n");
-        for(int i = 0; i < g->num_v; i++) printf("%d %d\n", pai[i], distancia[i]);
     }
 }
 
@@ -62,14 +60,13 @@ int GRAFOget_num_vertice(Grafo *g) {
     return g->num_v;
 }
 
-void GRAFOmenor_caminho(Grafo *g, int v){
+void GRAFOmenor_caminho(Grafo *g, int v, int maximo){
     int pai[g->num_v], distancia[g->num_v];
     Heap *heap = HEAPconstroi(g->num_v);
     
     for(int i = 0; i < g->num_v; i++){
         pai[i] = -1;
         distancia[i] = INTMAX;
-        printf("%d,%d\n", pai[i], distancia[i]);
     }
 
     distancia[v] = 0;
@@ -81,9 +78,20 @@ void GRAFOmenor_caminho(Grafo *g, int v){
     dijkstra(g, heap, v, pai, distancia);
 
     for(int i = 0; i < g->num_v; i++){
-        printf("(%d,%d,%d) ", i, pai[i], distancia[i]);
+        if(i == v) continue;
+
+        printf("%d: ", i);
+        if(distancia[i] > maximo || distancia[i] < 0) printf("sem caminho viavel partindo de %d\n", v);
+        else{
+            printf("%d, ", distancia[i]);
+            int padastro = i;
+            while(padastro != -1){
+                printf("%d ", padastro);
+                padastro = pai[padastro];
+            }
+            printf("\n");
+        }
     }
-    printf("\n");
 }
 
 void GRAFOimprime(Grafo *g){

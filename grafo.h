@@ -18,7 +18,7 @@ int GRAFOget_num_aresta(Grafo *g);
 
 int GRAFOget_num_vertice(Grafo *g);
 
-void GRAFOmenor_caminho(Grafo *g, int v);
+void GRAFOmenor_caminho(Grafo *g, int v, int maximo);
 
 void GRAFOimprime(Grafo *g);
 
