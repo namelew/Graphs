@@ -104,6 +104,17 @@ static void LISTAimprime(Lista *lista){
         printf("(%d-%d) ", aux->data.ind, aux->data.chave);
 }
 
+static void LISTAexplora(Lista *lista, Heap *heap, int v, int *pai, int *distancia){
+    printf("Explorando %d\n", v);
+    for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo){
+        if(HEAPtem_indice(heap, aux->data.ind) && HEAPdiminui_chave(heap, aux->data.ind, aux->data.chave + distancia[v])){
+            pai[aux->data.ind] = v;
+            distancia[aux->data.ind] = aux->data.chave + distancia[v];
+            printf("(%d %d %d)\n", aux->data.ind, v, distancia[aux->data.ind]);
+        }
+    }
+}
+
 Lista *LISTAconstroi(){
     Lista *lista = malloc(sizeof(*lista));
     lista->cabeca = NULL;
@@ -113,6 +124,7 @@ Lista *LISTAconstroi(){
     lista->remove = &LISTAremove;
     lista->conta = &LISTAConta;
     lista->destroi = &LISTAdestroi;
+    lista->explora = &LISTAexplora;
     lista->procura = &LISTAprocura;
 
     return lista;

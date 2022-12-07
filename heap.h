@@ -21,7 +21,7 @@ Item HEAPremove(Heap *f);
 
 Chave HEAPchave(Heap *f, int ind);
 
-void HEAPdiminui_chave(Heap *f, int ind, Chave c);
+int HEAPdiminui_chave(Heap *f, int ind, Chave c);
 
 void HEAPdestroi(Heap *f);
 

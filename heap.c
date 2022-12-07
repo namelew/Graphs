@@ -174,7 +174,7 @@ Chave HEAPchave(Heap *f, int ind) {
     return f->itens[f->ind_posfila[ind]].chave;
 }
 
-void HEAPdiminui_chave(Heap *f, int ind, Chave c) {
+int HEAPdiminui_chave(Heap *f, int ind, Chave c) {
     if (!indice_valido(f, ind)) {
         printf("Erro na operacao HEAPdiminui_chave: o indice %d eh "
             "invalido!\n", ind);
@@ -187,12 +187,13 @@ void HEAPdiminui_chave(Heap *f, int ind, Chave c) {
         exit(EXIT_FAILURE);
     }
 
-    // TODO: Checar se a chave recebida por parametro eh menor que a chave
-    // atual do item
+    if(f->itens[f->ind_posfila[ind]].chave <= c) return 0;
 
     f->itens[f->ind_posfila[ind]].chave = c;
 
     consertaParaCima(f, f->ind_posfila[ind]);
+
+    return 1;
 }
 
 void HEAPdestroi(Heap *f) {

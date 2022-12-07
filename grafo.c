@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grafo.h"
+#include "heap.h"
 #include "fila.h"
 
 #define INTMAX 2147483647
@@ -10,6 +11,15 @@ struct grafo {
     int num_a;
     Lista **ladj;
 };
+
+static void dijkstra(Grafo *g, Heap *heap, int v, int *pai, int *distancia){
+    while(!HEAPvazia(heap)){
+        Item w = HEAPremove(heap);
+        g->ladj[w.ind]->explora(g->ladj[w.ind], heap, w.ind, pai, distancia);
+        printf("\n PAI | DISTANCIA \n");
+        for(int i = 0; i < g->num_v; i++) printf("%d %d\n", pai[i], distancia[i]);
+    }
+}
 
 Grafo *GRAFOconstroi(int num_v) {
     Grafo *g;
@@ -52,8 +62,28 @@ int GRAFOget_num_vertice(Grafo *g) {
     return g->num_v;
 }
 
-void GRAFOmenor_caminho(Grafo *g){
+void GRAFOmenor_caminho(Grafo *g, int v){
+    int pai[g->num_v], distancia[g->num_v];
+    Heap *heap = HEAPconstroi(g->num_v);
+    
+    for(int i = 0; i < g->num_v; i++){
+        pai[i] = -1;
+        distancia[i] = INTMAX;
+        printf("%d,%d\n", pai[i], distancia[i]);
+    }
 
+    distancia[v] = 0;
+
+    for(int i = 0; i < g->num_v; i++){
+        HEAPinsere(heap, ITEM(i, distancia[i]));
+    }
+
+    dijkstra(g, heap, v, pai, distancia);
+
+    for(int i = 0; i < g->num_v; i++){
+        printf("(%d,%d,%d) ", i, pai[i], distancia[i]);
+    }
+    printf("\n");
 }
 
 void GRAFOimprime(Grafo *g){
