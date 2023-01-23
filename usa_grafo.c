@@ -16,20 +16,22 @@ int main() {
         int y,z;
         scanf("%d %d %d", &x, &y, &z);
         getchar();
-
-        GRAFOinsere_aresta(g, ARESTA(x,y,z));
+        x -= 1;
+        y -= 1;
+        switch (z) {
+            case 1:
+                GRAFOinsere_aresta(g, ARESTA(x,y,1));
+                break;
+            case 2:
+                GRAFOinsere_aresta(g, ARESTA(x,y,1));
+                GRAFOinsere_aresta(g, ARESTA(y,x,1));
+                break;
+            default:
+                break;
+        }
     }
 
-    scanf("%d", &r);
-    getchar();
-
-    for(int i = 0; i < r; i++){
-        int m;
-        scanf("%d %d", &x, &m);
-        getchar();
-
-        GRAFOmenor_caminho(g, x, m);
-    }
+    printf("%d\n", GRAFOehfconexo(g));
 
     GRAFOdestroi(g);
 

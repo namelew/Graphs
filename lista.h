@@ -2,6 +2,7 @@
 
 #define LISTA_H
 #include "item.h"
+#include "pilha.h"
 #include "heap.h"
 
 typedef struct no No;
@@ -15,6 +16,7 @@ typedef struct lista{
     int (*conta)(struct lista *);
     void (*imprime)(struct lista *);
     void (*explora)(struct lista *, Heap *, int, int *, int *);
+    void (*empilha)(struct lista *, Pilha *);
     Item (*procura)(struct lista *, int);
 }Lista;
 

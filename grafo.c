@@ -3,6 +3,7 @@
 #include "grafo.h"
 #include "heap.h"
 #include "fila.h"
+#include "pilha.h"
 
 #define INTMAX 2147483647
 
@@ -17,6 +18,19 @@ static void dijkstra(Grafo *g, Heap *heap, int v, int *pai, int *distancia){
         Item w = HEAPremove(heap);
         g->ladj[w.ind]->explora(g->ladj[w.ind], heap, w.ind, pai, distancia);
     }
+}
+
+static void buscaProfundidade(Grafo *g, int v, int *marcados){
+    Pilha *p = PILHAconstroi();
+    PILHAinsere(p, v);
+    while(!PILHAvazia(p)){
+        int w = PILHAremove(p);
+        if(!marcados[w]){
+            marcados[w] = 1;
+            g->ladj[w]->empilha(g->ladj[w], p);
+        }
+    }
+    PILHAdestroi(p);
 }
 
 Grafo *GRAFOconstroi(int num_v) {
@@ -60,6 +74,22 @@ int GRAFOget_num_vertice(Grafo *g) {
     return g->num_v;
 }
 
+int GRAFOehfconexo(Grafo *g){
+    int *marcados = calloc(g->num_v, sizeof(int));
+    for(int i = 0; i < g->num_v; i++){
+        buscaProfundidade(g, i, marcados);
+        for(int j = 0; j < g->num_v; j++){
+            if (!marcados[j]){
+                free(marcados);
+                return 0;
+            } 
+        } 
+        for(int j = 0; j < g->num_v; j++) marcados[j] = 0;
+    }
+    free(marcados);
+    return 1;
+}
+
 void GRAFOmenor_caminho(Grafo *g, int v, int maximo){
     int pai[g->num_v], distancia[g->num_v];
     Heap *heap = HEAPconstroi(g->num_v);
@@ -96,7 +126,9 @@ void GRAFOmenor_caminho(Grafo *g, int v, int maximo){
 
 void GRAFOimprime(Grafo *g){
     for(int i = 0; i < g->num_v; i++){
+        printf("%d: ", i);
         g->ladj[i]->imprime(g->ladj[i]);
+        printf("\n");
     }
 }
 

@@ -113,6 +113,12 @@ static void LISTAexplora(Lista *lista, Heap *heap, int v, int *pai, int *distanc
     }
 }
 
+static void LISTAempilha(Lista *lista, Pilha *pilha){
+    for(No *aux = lista->cabeca; aux != NULL; aux = aux->proximo){
+        PILHAinsere(pilha, aux->data.ind);
+    }
+}
+
 Lista *LISTAconstroi(){
     Lista *lista = malloc(sizeof(*lista));
     lista->cabeca = NULL;
@@ -124,6 +130,6 @@ Lista *LISTAconstroi(){
     lista->destroi = &LISTAdestroi;
     lista->explora = &LISTAexplora;
     lista->procura = &LISTAprocura;
-
+    lista->empilha = &LISTAempilha;
     return lista;
 }
